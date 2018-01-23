@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 __author__ = 'Albino'
 
-import re
+# 测试脚本
 
-rule = '\d+/#pvareaid=\d+'
-r = re.findall('ah-100/',rule)
-print(r)
+if __name__ == '__main__':
+    pass
