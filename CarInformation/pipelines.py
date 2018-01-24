@@ -35,11 +35,11 @@ class MysqlPipeline(object):
     def process_item(self, item, spider):
         query = self.dbpool.runInteraction(self.do_insert, item)
         # 异步插入错误处理
-        query.addErrorback(self.handle_error)
+        query.addErrback(self.handle_error, item)
 
-    def handle_error(self, failure):
+    def handle_error(self, failure, item):
         # 异步插入错误处理
-        print(failure)
+        print("error:" + str(failure) + str(item))
 
     def do_insert(self, cursor, item):
         insert_sql, params = item.get_insert_sql()

@@ -8,21 +8,34 @@
 import re
 import scrapy
 from scrapy.loader import ItemLoader
-from scrapy.loader.processors import MapCompose, TakeFirst, Join
+from scrapy.loader.processors import MapCompose, TakeFirst
 
 
 def autohome_get_car_name(value):
-    car_name = re.match('<.*>(.*-)<h1>(.*)</h1></a>', value).groups()
-    car_name = "".join(x for x in car_name)
+    car_name = re.match('<.*>(.*-)<h1>(.*)</h1></a>', value)
+    if not car_name:
+        car_name = re.findall('<.*>(.*)</a>', value)
+        return car_name[0]
+    car_name = "".join(x for x in car_name.groups())
     return car_name
 
-def auto_get_structure(list):
+
+def autohome_get_structure(list):
     return list[-1]
 
-def auto_get_transmission(list):
+
+def autohome_get_transmission(list):
     list.pop()
-    value =  ','.join(x for x in list)
+    value = ','.join(x for x in list)
     return value
+
+
+
+def autohome_join_str(list):
+    value = ','.join(x for x in list)
+    return value
+
+
 
 class CarInformationLoader(ItemLoader):
     """
@@ -37,18 +50,10 @@ class AutohomeItem(scrapy.Item):
         input_processor=MapCompose(autohome_get_car_name)
     )
     guidance_price = scrapy.Field()
-    color = scrapy.Field(
-        output_processor=Join(",")
-    )
-    engine = scrapy.Field(
-        output_processor=Join(",")
-    )
-    structure = scrapy.Field(
-        output_processor=auto_get_structure
-    )
-    transmission = scrapy.Field(
-        output_processor=auto_get_transmission
-    )
+    color = scrapy.Field()
+    engine = scrapy.Field()
+    structure = scrapy.Field()
+    transmission = scrapy.Field()
 
     def get_insert_sql(self):
         insert_sql = """
