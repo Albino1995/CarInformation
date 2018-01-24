@@ -20,22 +20,6 @@ def autohome_get_car_name(value):
     return car_name
 
 
-def autohome_get_structure(list):
-    return list[-1]
-
-
-def autohome_get_transmission(list):
-    list.pop()
-    value = ','.join(x for x in list)
-    return value
-
-
-
-def autohome_join_str(list):
-    value = ','.join(x for x in list)
-    return value
-
-
 
 class CarInformationLoader(ItemLoader):
     """
