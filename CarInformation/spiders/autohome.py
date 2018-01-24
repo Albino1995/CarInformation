@@ -47,8 +47,9 @@ class AutohomeSpider(CrawlSpider):
             transmission = '暂无'
         else:
             structure = structure_transmission.extract()[-1]
-            structure_transmission.extract().pop()
-            transmission = ",".join(x for x in structure_transmission.extract())
+            temp = structure_transmission.extract()
+            del temp[-1]
+            transmission = ",".join(x for x in temp)
         item_loader.add_value('structure', structure)
         item_loader.add_value('transmission', transmission)
 
