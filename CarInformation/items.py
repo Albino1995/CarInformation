@@ -48,3 +48,24 @@ class AutohomeItem(scrapy.Item):
                   self["structure"], self["transmission"])
 
         return insert_sql, params
+
+
+class PcautoItem(scrapy.Item):
+    url = scrapy.Field()
+    car_name = scrapy.Field()
+    guidance_price = scrapy.Field()
+    swept_volume = scrapy.Field()
+    car_type = scrapy.Field()
+    transmission = scrapy.Field()
+    structure = scrapy.Field()
+    color = scrapy.Field()
+
+    def get_insert_sql(self):
+        insert_sql = """
+                          insert into pcauto(url,car_name,guidance_price,swept_volume,car_type,transmission,structure,color)
+                          VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+                        """
+        params = (self["url"], self["car_name"], self["guidance_price"], self["swept_volume"], self["car_type"], self["transmission"],
+                  self["structure"], self["color"])
+
+        return insert_sql, params
