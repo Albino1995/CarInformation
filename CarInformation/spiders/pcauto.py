@@ -6,7 +6,7 @@ from CarInformation.items import PcautoItem, CarInformationLoader
 
 
 class PcatutoSpider(CrawlSpider):
-    name = 'pcatuto'
+    name = 'pcauto'
     allowed_domains = ['price.pcauto.com.cn']
     start_urls = ['http://price.pcauto.com.cn/cars/']
 
