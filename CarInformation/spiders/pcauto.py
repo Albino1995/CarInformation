@@ -54,5 +54,5 @@ class PcatutoSpider(CrawlSpider):
         else:
             color = ','.join(x for x in color)
         item_loader.add_value('color', color)
-        car_autohome_item = item_loader.load_item()
-        yield car_autohome_item
+        car_pcauto_item = item_loader.load_item()
+        yield car_pcauto_item
