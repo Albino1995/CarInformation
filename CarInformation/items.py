@@ -69,3 +69,23 @@ class PcautoItem(scrapy.Item):
                   self["structure"], self["color"])
 
         return insert_sql, params
+
+
+class YicheItem(scrapy.Item):
+    url = scrapy.Field()
+    car_name = scrapy.Field()
+    guidance_price = scrapy.Field()
+    swept_volume = scrapy.Field()
+    fuel_economy = scrapy.Field()
+    color = scrapy.Field()
+    premium_rate = scrapy.Field()
+
+    def get_insert_sql(self):
+        insert_sql = """
+                          insert into yiche(url,car_name,guidance_price,swept_volume,fuel_economy,color,premium_rate)
+                          VALUES (%s, %s, %s, %s, %s, %s, %s)
+                        """
+        params = (self["url"], self["car_name"], self["guidance_price"], self["swept_volume"], self["fuel_economy"], self["color"],
+                  self["premium_rate"])
+
+        return insert_sql, params
