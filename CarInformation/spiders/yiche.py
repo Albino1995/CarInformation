@@ -12,10 +12,10 @@ class YicheSpider(CrawlSpider):
 
     rules = (
         Rule(LinkExtractor(allow=("^http://car.bitauto.com/tree_chexing/.*/$",)), follow=True),
-        Rule(LinkExtractor(allow=r'^http://car.bitauto.com/[a-zA-Z0-9-]*/$'), callback='parse_item', follow=True),
+        Rule(LinkExtractor(allow=r'^http://car.bitauto.com/[a-zA-Z0-9-]*/$'), callback='parse_yiche', follow=True),
     )
 
-    def parse_item(self, response):
+    def parse_yiche(self, response):
         item_loader = CarInformationLoader(item=YicheItem(), response=response)
         item_loader.add_value('url', response.url)
         car_name = response.css('.crumbs-txt a:nth-last-child(2)::text').extract()[0] + '-' + response.css('.crumbs-txt strong::text').extract()[0]
