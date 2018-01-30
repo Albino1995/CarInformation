@@ -89,3 +89,23 @@ class YicheItem(scrapy.Item):
                   self["premium_rate"])
 
         return insert_sql, params
+
+
+class AutoSinaItem(scrapy.Item):
+    url = scrapy.Field()
+    car_name = scrapy.Field()
+    guidance_price = scrapy.Field()
+    engine = scrapy.Field()
+    transmission = scrapy.Field()
+    car_type = scrapy.Field()
+    color = scrapy.Field()
+
+    def get_insert_sql(self):
+        insert_sql = """
+                          insert into autosina(url,car_name,guidance_price,engine,transmission,car_type,color)
+                          VALUES (%s, %s, %s, %s, %s, %s, %s)
+                        """
+        params = (self["url"], self["car_name"], self["guidance_price"], self["engine"], self["transmission"], self["car_type"],
+                  self["color"])
+
+        return insert_sql, params
