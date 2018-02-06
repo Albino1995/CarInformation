@@ -109,3 +109,23 @@ class AutoSinaItem(scrapy.Item):
                   self["color"])
 
         return insert_sql, params
+
+
+class YicheForumItem(scrapy.Item):
+    url = scrapy.Field()
+    forum_name = scrapy.Field()
+    theme_num = scrapy.Field()
+    posts_num = scrapy.Field()
+    essence_posts_num = scrapy.Field()
+    owner_num = scrapy.Field()
+    crawl_time = scrapy.Field()
+
+    def get_insert_sql(self):
+        insert_sql = """
+                          insert into yiche_forum(url,forum_name,theme_num,posts_num,essence_posts_num,owner_num,crawl_time)
+                          VALUES (%s, %s, %s, %s, %s, %s, %s)
+                        """
+        params = (self["url"], self["forum_name"], self["theme_num"], self["posts_num"], self["essence_posts_num"], self["owner_num"],
+                  self["crawl_time"])
+
+        return insert_sql, params
